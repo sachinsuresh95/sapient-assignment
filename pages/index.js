@@ -1,65 +1,78 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styled from "styled-components";
+import api from "../api";
+import Filters from "../components/Filters";
+import LaunchCard from "../components/LaunchCard";
 
-export default function Home() {
+export default function Home({ launches }) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Space-X</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+      <main>
+        <h2 style={{ padding: "10px" }}>Space-X</h2>
+        <AppContainer>
+          <Filters />
+          <CardContainer>
+            {launches.map((launch) => (
+              <div key={launch.launch_date_unix} className='card-wrapper'>
+                <LaunchCard launch={launch} />
+              </div>
+            ))}
+          </CardContainer>
+        </AppContainer>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
+      <footer>
+        Developed by Sachin Suresh
       </footer>
     </div>
-  )
+  );
 }
+
+export async function getServerSideProps(context) {
+  const {launch_year, launch_success, land_success} = context.query;
+  const res = await api.getLaunchData(launch_year, launch_success, land_success);
+  return { props: { launches: res } };
+}
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 700px) {
+    flex-direction: row;
+  }
+`;
+
+const CardContainer = styled.div`
+  text-align: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  max-width: 900px;
+  .card-wrapper {
+    width: 100%;
+    margin: 0 20px;
+  }
+
+  @media (min-width: 700px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .card-wrapper{ 
+      width: 40%;
+    }
+  }
+
+  @media(min-width: 1024px) {
+    .card-wrapper {
+      width: 20%;
+      margin: 0 10px;
+    }
+  }
+`;
