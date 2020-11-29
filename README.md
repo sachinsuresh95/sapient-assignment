@@ -5,6 +5,7 @@ The app is bootstrapped using create-next-app. So all next.js commands are avail
 ```npm run dev``` to run in dev mode
 ```npm run build``` to build production bundle
 ```npm run start``` to build production and serve
+```npm run lint``` to run eslint
 
 ## Stack details
 
