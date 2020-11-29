@@ -23,3 +23,12 @@ No css library or framework has been used
 Unit tests are pending due to time constraints
 
 
+## Lighthouse score
+Lighthouse score on desktop
+
+[!desktop lighthouse score](https://ibb.co/HqYbjWh)
+
+Lighthouse score on slow mobile
+[!slow mobile lighthouse score](https://ibb.co/vx6JqH4)
+
+
