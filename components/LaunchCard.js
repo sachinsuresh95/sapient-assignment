@@ -1,33 +1,36 @@
-import styled from "styled-components";
-import Image from "next/image";
+import styled from 'styled-components';
 
-const LaunchCard = ({ launch }) => {
-  return (
-    <Card>
-      <div key={launch.launch_date_unix}>
-        <div>
-          <img
-            src={launch.links.mission_patch}
-            alt={`${launch.mission_name} icon`}
-          />
-        </div>
-        <div className="card-title">
-          {launch.mission_name} #{launch.flight_number}
-        </div>
-        {launch.mission_id.length > 0 && (
-          <div className="mission-id">
-            Mission IDs:{" "}
-            {launch.mission_id.map((id) => (
-              <span key={id}>{id}</span>
-            ))}
-          </div>
-        )}
-        <div>Launch year: {launch.launch_year}</div>
-        <div>Succesfull Launch: {`${launch.launch_success}`}</div>
+const LaunchCard = ({ launch }) => (
+  <Card>
+    <div key={launch.launch_date_unix}>
+      <div>
+        <img
+          src={launch.links.mission_patch}
+          alt={`${launch.mission_name} icon`}
+        />
       </div>
-    </Card>
-  );
-};
+      <div className="card-title">
+        {launch.mission_name} #{launch.flight_number}
+      </div>
+      {launch.mission_id.length > 0 && (
+        <div className="mission-id">
+          Mission IDs:{' '}
+          {launch.mission_id.map(id => (
+            <span key={id}>{id}</span>
+          ))}
+        </div>
+      )}
+      <div>
+        Launch year:
+        {launch.launch_year}
+      </div>
+      <div>
+        Succesfull Launch:
+        {`${launch.launch_success}`}
+      </div>
+    </div>
+  </Card>
+);
 
 const Card = styled.div`
   margin: auto;
