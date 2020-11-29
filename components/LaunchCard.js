@@ -1,12 +1,16 @@
 import styled from 'styled-components';
+import Image from 'next/image';
 
 const LaunchCard = ({ launch }) => (
   <Card>
     <div key={launch.launch_date_unix}>
       <div>
-        <img
+        <Image
           src={launch.links.mission_patch}
           alt={`${launch.mission_name} icon`}
+          width={200}
+          height={200}
+          quality={60}
         />
       </div>
       <div className="card-title">
