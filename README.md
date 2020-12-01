@@ -10,6 +10,8 @@ The app is bootstrapped using create-next-app. So all next.js commands are avail
 
 ```npm run lint``` to run eslint
 
+```npm run build:lint``` to lint and build
+
 
 ## Stack details
 
