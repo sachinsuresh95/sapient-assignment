@@ -47,6 +47,7 @@ const Card = styled.div`
   text-align: left;
   line-height: 1.5;
   font-size: 12px;
+  border-radius: 5px;
   .card-title {
     font-size: 16px;
     font-weight: 600;

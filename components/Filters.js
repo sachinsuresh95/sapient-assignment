@@ -138,11 +138,13 @@ const Filters = () => {
 
 const FilterContainer = styled.div`
   padding: 10px;
-  max-width: 200px;
-  margin: 0 auto;
+  max-width: 220px;
+  height: fit-content;
+  margin: 10px auto;
+  border-radius: 5px;
+  background-color: white;
   .filter-title {
     font-weight: 600;
-    text-align: center;
   }
   .toggle-filter {
     text-align: center;
@@ -158,6 +160,11 @@ const FilterContainer = styled.div`
     }
   }
   .filter-group {
+    .filter-title {
+      text-decoration: underline;
+      text-align: center;
+      font-weight: light;
+    }
     .filters {
       display: flex;
       flex-wrap: wrap;
@@ -172,7 +179,7 @@ const FilterContainer = styled.div`
     }
   }
   @media (min-width: 700px) {
-    margin: 0;
+    margin: 0 10px 0 0;
     .toggle-filter {
       display: none;
     }
