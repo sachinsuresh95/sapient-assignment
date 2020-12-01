@@ -9,7 +9,7 @@ export default function Home({ launches }) {
     <div>
       <Head>
         <title>Space-X Launch Programs</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
@@ -18,7 +18,7 @@ export default function Home({ launches }) {
           <Filters />
           <CardContainer>
             {launches.map(launch => (
-              <div key={launch.launch_date_unix} className='card-wrapper'>
+              <div key={launch.launch_date_unix} className="card-wrapper">
                 <LaunchCard launch={launch} />
               </div>
             ))}

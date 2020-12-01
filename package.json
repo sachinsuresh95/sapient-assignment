@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "npm run lint",
     "start": "next start",
-    "lint": "npx eslint --fix --ext .js"
+    "lint": "npx eslint --fix --ext .js ./"
   },
   "dependencies": {
     "axios": "^0.21.0",

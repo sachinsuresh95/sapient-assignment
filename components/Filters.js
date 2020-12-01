@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import {useMediaQuery} from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 
 const years = Array.from(new Array(15), (x, i) => `${i + 2006}`);
 
 const Filters = () => {
   const router = useRouter();
-  const isMobile = useMediaQuery({ maxWidth: 700})
+  const isMobile = useMediaQuery({ maxWidth: 700 });
   const { launch_year, launch_success, land_success } = router.query;
   const [yearFilter, setYearFilter] = useState(launch_year);
   const [launchSuccess, setLaunchSuccess] = useState(launch_success);
@@ -35,17 +35,18 @@ const Filters = () => {
   };
 
   useEffect(() => {
-    setFilterVisible(isMobile ? false : true)
+    setFilterVisible(!isMobile);
   }, [isMobile]);
   useEffect(() => {
     applyFilter();
   }, [JSON.stringify(yearFilter), launchSuccess, landingSuccess]);
   return (
     <FilterContainer>
-      <div className='filter-title'>Filters</div>
+      <div className="filter-title">Filters</div>
       <button
+        type="button"
         style={{ width: '100%' }}
-        className='toggle-filter'
+        className="toggle-filter"
         onClick={() => {
           toggleFilterVisibility();
         }}
@@ -57,11 +58,11 @@ const Filters = () => {
           filterVisible ? 'visible' : 'hidden'
         }`}
       >
-        <div className='filter-group'>
-          <div className='filter-title'>Launch year</div>
-          <div className='filters'>
+        <div className="filter-group">
+          <div className="filter-title">Launch year</div>
+          <div className="filters">
             {years.map(year => (
-              <div key={year} className='filter-wrapper'>
+              <div key={year} className="filter-wrapper">
                 <FilterToggle
                   value={year}
                   active={year === yearFilter}
@@ -69,63 +70,63 @@ const Filters = () => {
                     e.preventDefault();
                     setYearFilter(year === yearFilter ? '' : year);
                   }}
-                  tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
+                  tabIndex={isMobile ? (filterVisible ? '0' : '-1') : '0'}
                 />
               </div>
             ))}
-            <div className='dead-container filter-wrapper' />
+            <div className="dead-container filter-wrapper" />
           </div>
         </div>
-        <div className='filter-group'>
-          <div className='filter-title'>Launch Success</div>
-          <div className='filters'>
-            <div className='filter-wrapper'>
+        <div className="filter-group">
+          <div className="filter-title">Launch Success</div>
+          <div className="filters">
+            <div className="filter-wrapper">
               <FilterToggle
-                value='true'
+                value="true"
                 active={launchSuccess === 'true'}
                 onClick={e => {
                   e.preventDefault();
                   setLaunchSuccess(launchSuccess === 'true' ? '' : 'true');
                 }}
-                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
+                tabIndex={isMobile ? (filterVisible ? '0' : '-1') : '0'}
               />
             </div>
-            <div className='filter-wrapper'>
+            <div className="filter-wrapper">
               <FilterToggle
-                value='false'
+                value="false"
                 active={launchSuccess === 'false'}
                 onClick={e => {
                   e.preventDefault();
                   setLaunchSuccess(launchSuccess === 'false' ? '' : 'false');
                 }}
-                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
+                tabIndex={isMobile ? (filterVisible ? '0' : '-1') : '0'}
               />
             </div>
           </div>
         </div>
-        <div className='filter-group'>
-          <div className='filter-title'>Landing Success</div>
-          <div className='filters'>
-            <div className='filter-wrapper'>
+        <div className="filter-group">
+          <div className="filter-title">Landing Success</div>
+          <div className="filters">
+            <div className="filter-wrapper">
               <FilterToggle
-                value='true'
+                value="true"
                 active={landingSuccess === 'true'}
                 onClick={e => {
                   e.preventDefault();
                   setLandingSuccess(landingSuccess === 'true' ? '' : 'true');
                 }}
-                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
+                tabIndex={isMobile ? (filterVisible ? '0' : '-1') : '0'}
               />
             </div>
-            <div className='filter-wrapper'>
+            <div className="filter-wrapper">
               <FilterToggle
-                value='false'
+                value="false"
                 active={landingSuccess === 'false'}
                 onClick={e => {
                   e.preventDefault();
                   setLandingSuccess(landingSuccess === 'false' ? '' : 'false');
                 }}
-                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
+                tabIndex={isMobile ? (filterVisible ? '0' : '-1') : '0'}
               />
             </div>
           </div>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 const LaunchCard = ({ launch }) => (
   <Card>
     <div key={launch.launch_date_unix}>
-      <div className='image-wrapper'>
+      <div className="image-wrapper">
         <Image
           src={launch.links.mission_patch}
           alt={`${launch.mission_name} icon`}
@@ -13,11 +13,11 @@ const LaunchCard = ({ launch }) => (
           quality={60}
         />
       </div>
-      <div className='card-title'>
+      <div className="card-title">
         {launch.mission_name} #{launch.flight_number}
       </div>
       {launch.mission_id.length > 0 && (
-        <div className='mission-id'>
+        <div className="mission-id">
           <span style={{ fontWeight: 'bold' }}>Mission IDs:</span>{' '}
           <ul>
             {launch.mission_id.map(id => (
