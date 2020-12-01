@@ -6,7 +6,7 @@ The app is bootstrapped using create-next-app. So all next.js commands are avail
 
 ```npm run build``` to build production bundle
 
-```npm run start``` to build production and serve
+```npm run start``` to serve production build. Run only after building.
 
 ```npm run lint``` to run eslint
 
@@ -14,8 +14,11 @@ The app is bootstrapped using create-next-app. So all next.js commands are avail
 ## Stack details
 
 Server side rendering is done using Next.js
+
 CSS-in-JS using styled-components
+
 Axios is the http client being used
+
 No css library or framework has been used
 
 ## Left to do
