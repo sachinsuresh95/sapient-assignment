@@ -4,7 +4,7 @@ import Image from 'next/image';
 const LaunchCard = ({ launch }) => (
   <Card>
     <div key={launch.launch_date_unix}>
-      <div>
+      <div className='image-wrapper'>
         <Image
           src={launch.links.mission_patch}
           alt={`${launch.mission_name} icon`}
@@ -13,23 +13,25 @@ const LaunchCard = ({ launch }) => (
           quality={60}
         />
       </div>
-      <div className="card-title">
+      <div className='card-title'>
         {launch.mission_name} #{launch.flight_number}
       </div>
       {launch.mission_id.length > 0 && (
-        <div className="mission-id">
-          Mission IDs:{' '}
-          {launch.mission_id.map(id => (
-            <span key={id}>{id}</span>
-          ))}
+        <div className='mission-id'>
+          <span style={{ fontWeight: 'bold' }}>Mission IDs:</span>{' '}
+          <ul>
+            {launch.mission_id.map(id => (
+              <li key={id}>{id}</li>
+            ))}
+          </ul>
         </div>
       )}
       <div>
-        Launch year:
+        <span style={{ fontWeight: 'bold' }}>Launch year:</span>
         {launch.launch_year}
       </div>
       <div>
-        Succesfull Launch:
+        <span style={{ fontWeight: 'bold' }}>Succesfull Launch:</span>
         {`${launch.launch_success}`}
       </div>
     </div>
@@ -38,16 +40,29 @@ const LaunchCard = ({ launch }) => (
 
 const Card = styled.div`
   margin: auto;
-  margin-bottom: 25px;
   width: 100%;
-  max-width: 200px;
+  height: 100%;
+  padding: 15px;
+  background-color: white;
+  text-align: left;
+  line-height: 1.5;
+  font-size: 12px;
   .card-title {
+    font-size: 16px;
     font-weight: 600;
     color: indigo;
   }
-  img {
-    max-width: 100%;
-    height: auto;
+  .image-wrapper {
+    background-color: lightgrey;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .mission-id {
+    ul {
+      margin: 0;
+    }
   }
 `;
 

@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import {useMediaQuery} from 'react-responsive'
 
 const years = Array.from(new Array(15), (x, i) => `${i + 2006}`);
 
 const Filters = () => {
   const router = useRouter();
+  const isMobile = useMediaQuery({ maxWidth: 700})
   const { launch_year, launch_success, land_success } = router.query;
   const [yearFilter, setYearFilter] = useState(launch_year);
   const [launchSuccess, setLaunchSuccess] = useState(launch_success);
   const [landingSuccess, setLandingSuccess] = useState(land_success);
+  const [filterVisible, setFilterVisible] = useState(true);
   const applyFilter = () => {
     const query = {};
     if (yearFilter?.length) {
@@ -28,85 +31,101 @@ const Filters = () => {
   };
 
   const toggleFilterVisibility = () => {
-    const el = document?.getElementsByClassName('filter-group-wrapper')[0];
-    el.classList.toggle('hidden');
-    el.classList.toggle('visible');
+    setFilterVisible(!filterVisible);
   };
 
+  useEffect(() => {
+    setFilterVisible(isMobile ? false : true)
+  }, [isMobile]);
   useEffect(() => {
     applyFilter();
   }, [JSON.stringify(yearFilter), launchSuccess, landingSuccess]);
   return (
     <FilterContainer>
-      <div className="filter-title">Filters</div>
-      <div
-        className="toggle-filter"
+      <div className='filter-title'>Filters</div>
+      <button
+        style={{ width: '100%' }}
+        className='toggle-filter'
         onClick={() => {
           toggleFilterVisibility();
         }}
       >
         Click to show/hide filter
-      </div>
-      <div className="filter-group-wrapper hidden">
-        <div className="filter-group">
-          <div className="filter-title">Launch year</div>
-          <div className="filters">
+      </button>
+      <div
+        className={`filter-group-wrapper ${
+          filterVisible ? 'visible' : 'hidden'
+        }`}
+      >
+        <div className='filter-group'>
+          <div className='filter-title'>Launch year</div>
+          <div className='filters'>
             {years.map(year => (
-              <div key={year} className="filter-wrapper">
+              <div key={year} className='filter-wrapper'>
                 <FilterToggle
                   value={year}
                   active={year === yearFilter}
-                  onClick={() => {
+                  onClick={e => {
+                    e.preventDefault();
                     setYearFilter(year === yearFilter ? '' : year);
                   }}
+                  tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
                 />
               </div>
             ))}
-            <div className="dead-container filter-wrapper" />
+            <div className='dead-container filter-wrapper' />
           </div>
         </div>
-        <div className="filter-group">
-          <div className="filter-title">Launch Success</div>
-          <div className="filters">
-            <div className="filter-wrapper">
+        <div className='filter-group'>
+          <div className='filter-title'>Launch Success</div>
+          <div className='filters'>
+            <div className='filter-wrapper'>
               <FilterToggle
-                value="true"
+                value='true'
                 active={launchSuccess === 'true'}
-                onClick={() =>
-                  setLaunchSuccess(launchSuccess === 'true' ? '' : 'true')
-                }
+                onClick={e => {
+                  e.preventDefault();
+                  setLaunchSuccess(launchSuccess === 'true' ? '' : 'true');
+                }}
+                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
               />
             </div>
-            <div className="filter-wrapper">
+            <div className='filter-wrapper'>
               <FilterToggle
-                value="false"
+                value='false'
                 active={launchSuccess === 'false'}
-                onClick={() =>
-                  setLaunchSuccess(launchSuccess === 'false' ? '' : 'false')
-                }
+                onClick={e => {
+                  e.preventDefault();
+                  setLaunchSuccess(launchSuccess === 'false' ? '' : 'false');
+                }}
+                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
               />
             </div>
           </div>
         </div>
-        <div className="filter-group">
-          <div className="filter-title">Landing Success</div>
-          <div className="filters">
-            <div className="filter-wrapper">
+        <div className='filter-group'>
+          <div className='filter-title'>Landing Success</div>
+          <div className='filters'>
+            <div className='filter-wrapper'>
               <FilterToggle
-                value="true"
+                value='true'
                 active={landingSuccess === 'true'}
-                onClick={() =>
-                  setLandingSuccess(landingSuccess === 'true' ? '' : 'true')
-                }
+                onClick={e => {
+                  e.preventDefault();
+                  setLandingSuccess(landingSuccess === 'true' ? '' : 'true');
+                }}
+                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
               />
             </div>
-            <div className="filter-wrapper">
+            <div className='filter-wrapper'>
               <FilterToggle
-                value="false"
+                value='false'
                 active={landingSuccess === 'false'}
-                onClick={() =>
-                  setLandingSuccess(landingSuccess === 'false' ? '' : 'false')
-                }
+                onClick={e => {
+                  e.preventDefault();
+                  setLandingSuccess(landingSuccess === 'false' ? '' : 'false');
+                }}
+                tabIndex={isMobile ? filterVisible ? '0' : '-1' : '0'}
               />
             </div>
           </div>
@@ -118,7 +137,7 @@ const Filters = () => {
 
 const FilterContainer = styled.div`
   padding: 10px;
-  max-width: 400px;
+  max-width: 200px;
   margin: 0 auto;
   .filter-title {
     font-weight: 600;
@@ -152,26 +171,26 @@ const FilterContainer = styled.div`
     }
   }
   @media (min-width: 700px) {
+    margin: 0;
     .toggle-filter {
       display: none;
-    }
-    .filter-group-wrapper.hidden,
-    .filter-group-wrapper.visible {
-      height: 600px;
     }
   }
 `;
 
-const FilterButton = styled.span`
+const FilterButton = styled.button`
   padding: 5px 10px;
   border-radius: 5px;
   background-color: ${props => (props.active ? '#a3ba70' : '#e8f5cb')};
   cursor: pointer;
+  border: none;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
-const FilterToggle = ({ onClick, value, active }) => (
-  <FilterButton onClick={onClick} active={active}>
-    {value}
-  </FilterButton>
+const FilterToggle = ({ value, ...props }) => (
+  <FilterButton {...props}>{value}</FilterButton>
 );
 export default Filters;

@@ -8,8 +8,8 @@ export default function Home({ launches }) {
   return (
     <div>
       <Head>
-        <title>Space-X</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Space-X Launch Programs</title>
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main>
@@ -18,7 +18,7 @@ export default function Home({ launches }) {
           <Filters />
           <CardContainer>
             {launches.map(launch => (
-              <div key={launch.launch_date_unix} className="card-wrapper">
+              <div key={launch.launch_date_unix} className='card-wrapper'>
                 <LaunchCard launch={launch} />
               </div>
             ))}
@@ -46,35 +46,35 @@ const AppContainer = styled.div`
 
   @media (min-width: 700px) {
     flex-direction: row;
+    justify-content: center;
   }
 `;
 
 const CardContainer = styled.div`
   text-align: center;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: center;
-  max-width: 900px;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 10px;
   .card-wrapper {
-    width: 100%;
-    margin: 0 20px;
+    max-width: 220px;
+    max-height: 400px;
+    margin: 0 auto;
   }
-
   @media (min-width: 700px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
     .card-wrapper {
-      width: 40%;
+      margin: 0;
     }
   }
-
   @media (min-width: 1024px) {
+    max-width: 900px;
+    grid-template-columns: repeat(4, 1fr);
     .card-wrapper {
-      width: 20%;
-      margin: 0 10px;
+      margin: 0;
     }
   }
 `;
