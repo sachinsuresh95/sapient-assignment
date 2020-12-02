@@ -163,7 +163,7 @@ const FilterContainer = styled.div`
     .filter-title {
       text-decoration: underline;
       text-align: center;
-      font-weight: light;
+      font-weight: normal;
     }
     .filters {
       display: flex;

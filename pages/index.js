@@ -6,7 +6,7 @@ import LaunchCard from '../components/LaunchCard';
 
 export default function Home({ launches }) {
   return (
-    <div>
+    <Layout>
       <Head>
         <title>Space-X Launch Programs</title>
         <link rel="icon" href="/favicon.ico" />
@@ -22,11 +22,14 @@ export default function Home({ launches }) {
                 <LaunchCard launch={launch} />
               </div>
             ))}
+            {
+              launches.length === 0 && <div className='no-result'>Oops! No results!</div>
+            }
           </CardContainer>
         </AppContainer>
       </main>
       <footer>Developed by Sachin Suresh</footer>
-    </div>
+    </Layout>
   );
 }
 
@@ -40,6 +43,14 @@ export async function getServerSideProps(context) {
   return { props: { launches: res } };
 }
 
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  main {
+    flex-grow: 1;
+  }
+`;
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,6 +63,7 @@ const AppContainer = styled.div`
 
 const CardContainer = styled.div`
   text-align: center;
+  flex-grow: 1;
   display: grid;
   grid-auto-rows: 1fr;
   grid-template-columns: 1fr;
@@ -62,6 +74,14 @@ const CardContainer = styled.div`
     max-width: 220px;
     max-height: 400px;
     margin: 0 auto;
+  }
+  .no-result {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
   }
   @media (min-width: 700px) {
     grid-template-columns: repeat(2, 1fr);
